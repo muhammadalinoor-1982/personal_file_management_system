@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Home{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/min.css' %}">
+</head>
+<body>
+        {% block body %}
+
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+    <div class="container">
+        <div class="row">
+            <h1>Home Page</h1>
+            {% if user.is_authenticated %}
+                <li><a title="Log In" href="{% url 'user_logout' %}">Log Out</a></li>
+            {% else %}
+                <li><a title="Log In" href="{% url 'user_login' %}">Log In</a></li>
+            {% endif %}
+            <a href="{% url 'register' %}" target="_blank">Registration</a>
+            <a href="{% url 'ex_create' %}" target="_blank">Create a Personal Profile</a>
+
+            {% for i in ex %}
+                <div class="col-lg-3">
+                    <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                        <div class="card-header">{{ i.name }}</div>
+                        <img class="card-img-top" src="{{ i.image.url }}" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ i.sex }}</h5>
+                            <a href="{% url 'ex_update' i.id %}" class="btn btn-success">Update</a>
+                            <a href="{% url 'ex_delete' i.id %}" class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endblock %}
+
+</body>
+<script src="{% static 'js/min.js' %}"></script>
+</html>

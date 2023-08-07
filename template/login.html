@@ -1,0 +1,37 @@
+{% extends 'home.html' %}
+{% block title %}Login Page{% endblock %}
+{% block body %}
+
+    <div class="container">
+
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <div class="row">
+            <div class="col-lg-4">
+                <h1>Login Page</h1>
+                <a href="{% url 'register' %}" target="_blank">Registration</a>
+                <br>
+                <a href="{% url 'dashboard' %}" target="_blank">Home page</a>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label>User name</label>
+                        <input type="text" name="username" class="form-control" placeholder="Enter User Name">
+                        <br>
+                        <label>Password</label>
+                        <input type="password" name="password" class="form-control" >
+                        <br>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary">login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

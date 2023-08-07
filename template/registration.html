@@ -1,0 +1,49 @@
+{% extends 'home.html' %}
+{% block title %}Create Page{% endblock %}
+{% block body %}
+
+    <div class="container">
+
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <div class="row">
+            <div class="col-lg-4">
+                <h1>Registration Page</h1>
+                <a href="{% url 'user_login' %}" target="_blank">Login</a>
+                <br>
+                <a href="{% url 'dashboard' %}" target="_blank">Home page</a>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label>First name</label>
+                        <input type="text" name="first" class="form-control" placeholder="Enter First Name">
+                        <br>
+                        <label>Last name</label>
+                        <input type="text" name="last" class="form-control" placeholder="Enter Last Name">
+                        <br>
+                        <label>User name</label>
+                        <input type="text" name="name" class="form-control" placeholder="Enter User Name">
+                        <br>
+                        <label>Email address</label>
+                        <input type="email" name="email" class="form-control" placeholder="Enter email">
+                        <br>
+                        <label>Password</label>
+                        <input type="password" name="pass" class="form-control" >
+                        <br>
+                        <label>Retype Password</label>
+                        <input type="password" name="pass1" class="form-control" >
+                        <br>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
